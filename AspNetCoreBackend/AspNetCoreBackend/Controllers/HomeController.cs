@@ -42,8 +42,28 @@ namespace AspNetCoreBackend.Controllers
 
         public IActionResult OmaJuttu()
         {
-            //return "<h1> OmaJuttu metodi Home-kontrllerissa.</h1>";
             return View();
+        }
+        // string id parametrin arvo tulee automaattisesti web urlista
+        public IActionResult Asiakkaat(string id)
+        {
+            //return "<h1> OmaJuttu metodi Home-kontrollerissa.</h1>";
+            // alustetaan käyttöön konteksti, contextista löytyy listaus kaikista tauluista, joita tietomalliin kuuluu
+            NorthwindContext context = new NorthwindContext();
+
+            if (id == null)
+            {
+                return View(context.Customers);
+            }
+            else
+            {
+                string maa = id;
+                List<Customers> asiakkaat = (from c in context.Customers
+                                             where c.Country == maa
+                                             orderby c.CompanyName
+                                             select c).ToList();
+                return View(asiakkaat);
+            } 
         }
     }
 }

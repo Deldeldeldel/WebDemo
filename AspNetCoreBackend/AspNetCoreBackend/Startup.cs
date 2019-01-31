@@ -52,6 +52,7 @@ namespace AspNetCoreBackend
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            // kysymysmerkki id? tarkoittaa, että kyseinen osa on optional
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
